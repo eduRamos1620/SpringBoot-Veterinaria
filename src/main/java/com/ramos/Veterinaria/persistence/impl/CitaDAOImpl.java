@@ -21,8 +21,8 @@ public class CitaDAOImpl implements ICitaDAO {
     }
 
     @Override
-    public Optional<Cita> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Cita> findById(Long idCita) {
+        return repository.findById(idCita);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CitaDAOImpl implements ICitaDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idCita) {
+        repository.deleteById(idCita);
     }
 }

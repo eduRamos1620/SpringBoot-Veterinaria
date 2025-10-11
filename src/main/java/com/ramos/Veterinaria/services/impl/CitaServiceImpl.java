@@ -4,9 +4,9 @@ import com.ramos.Veterinaria.entities.Cita;
 import com.ramos.Veterinaria.persistence.ICitaDAO;
 import com.ramos.Veterinaria.services.ICitaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CitaServiceImpl implements ICitaService {
 
@@ -19,8 +19,8 @@ public class CitaServiceImpl implements ICitaService {
     }
 
     @Override
-    public Optional<Cita> findById(Long id) {
-        return citaDAO.findById(id);
+    public ResponseEntity<?> findById(Long idCita) {
+        return citaDAO.findById(idCita);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class CitaServiceImpl implements ICitaService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        citaDAO.deleteById(id);
+    public void deleteById(Long idCita) {
+        citaDAO.deleteById(idCita);
     }
 }
