@@ -9,9 +9,9 @@ public interface IDoctorDAO {
 
     List<Doctor> findAll();
 
-    Optional<Doctor> findById(Long id);
+    Optional<Doctor> findById(Long idDoctor);
 
     void save(Doctor doctor);
 
-    void deleteById(Long id);
+    void deleteById(Long idDoctor);
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cita")
-public class CitaController extends CitaServiceImpl {
+public class CitaController {
 
     @Autowired
     private ICitaService citaService;

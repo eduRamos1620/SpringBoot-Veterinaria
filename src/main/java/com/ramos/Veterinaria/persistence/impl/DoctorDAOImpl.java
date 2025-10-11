@@ -21,8 +21,8 @@ public class DoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public Optional<Doctor> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Doctor> findById(Long idDoctor) {
+        return repository.findById(idDoctor);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idDoctor) {
+        repository.deleteById(idDoctor);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CitaServiceImpl implements ICitaService {
 
@@ -19,7 +20,7 @@ public class CitaServiceImpl implements ICitaService {
     }
 
     @Override
-    public ResponseEntity<?> findById(Long idCita) {
+    public Optional<Cita> findById(Long idCita) {
         return citaDAO.findById(idCita);
     }
 

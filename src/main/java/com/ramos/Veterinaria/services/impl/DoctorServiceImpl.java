@@ -3,6 +3,7 @@ package com.ramos.Veterinaria.services.impl;
 import com.ramos.Veterinaria.entities.Doctor;
 import com.ramos.Veterinaria.persistence.IDoctorDAO;
 import com.ramos.Veterinaria.services.IDoctorService;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +18,9 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
-    public Optional<Doctor> findById(Long id) {
-        return doctorDAO.findById(id);
+    public Optional<Doctor> findById(Long idDoctor) {
+
+        return doctorDAO.findById(idDoctor);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        doctorDAO.deleteById(id);
+    public void deleteById(Long idDoctor) {
+        doctorDAO.deleteById(idDoctor);
     }
 }
