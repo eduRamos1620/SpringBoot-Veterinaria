@@ -30,8 +30,7 @@ public class Doctor {
     private String apellidoMaterno;
 
     @NotBlank
-    @Min(value = 7)
-    @Max(value = 8)
+    //@Max(value = 8)
     private String cedula;
 
     @NotBlank

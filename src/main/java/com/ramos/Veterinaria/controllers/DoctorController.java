@@ -6,11 +6,7 @@ import com.ramos.Veterinaria.services.IDoctorService;
 import com.ramos.Veterinaria.services.impl.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +20,7 @@ public class DoctorController {
     @Autowired
     private IDoctorService serviceDoctor;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/find/{idDoctor}")
     public ResponseEntity<?> findById(@PathVariable Long idDoctor){
         Optional<Doctor> doctorOptional = serviceDoctor.findById(idDoctor);
         if(doctorOptional.isPresent()){
@@ -45,6 +41,7 @@ public class DoctorController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/findAll")
     public ResponseEntity<?> findAll(){
         List<DoctorDto> doctorList = serviceDoctor.findAll().stream()
                 .map( doctor -> DoctorDto.builder()
@@ -61,5 +58,49 @@ public class DoctorController {
         return ResponseEntity.ok(doctorList);
     }
 
-    public ResponseEntity<?>
+    @PostMapping("/save")
+    public ResponseEntity<?> save (@RequestBody DoctorDto doctorDto){
+        if (doctorDto.getNombre().isBlank() && doctorDto.getApellidoPaterno().isBlank() && doctorDto.getCedula().isBlank()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        serviceDoctor.save(Doctor.builder()
+                .nombre(doctorDto.getNombre())
+                .apellidoPaterno(doctorDto.getApellidoPaterno())
+                .apellidoMaterno(doctorDto.getApellidoMaterno())
+                .cedula(doctorDto.getCedula())
+                .telefono(doctorDto.getTelefono())
+                .domicilio(doctorDto.getDomicilio())
+                .build());
+
+        return ResponseEntity.ok("Doctor agregado correctamente");
+    }
+
+    @PutMapping("/update/{idDoctor}")
+    public ResponseEntity<?> updateDoctor(@PathVariable Long idDoctor, @RequestBody DoctorDto doctorDto){
+        Optional<Doctor> optionalDoctor = serviceDoctor.findById(idDoctor);
+
+        if(optionalDoctor.isPresent()){
+            Doctor doctor = optionalDoctor.get();
+            doctor.setNombre(doctorDto.getNombre());
+            doctor.setApellidoPaterno(doctorDto.getApellidoPaterno());
+            doctor.setApellidoMaterno(doctorDto.getApellidoMaterno());
+            doctor.setCedula(doctorDto.getCedula());
+            doctor.setTelefono(doctorDto.getTelefono());
+            doctor.setDomicilio(doctorDto.getDomicilio());
+
+            serviceDoctor.save(doctor);
+            return ResponseEntity.ok("Registro actualizado");
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/delete/{idDoctor}")
+    public ResponseEntity<?> deleteById(@PathVariable Long idDoctor){
+        if (idDoctor != null){
+            serviceDoctor.deleteById(idDoctor);
+            return ResponseEntity.ok("Registsro eliminado");
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

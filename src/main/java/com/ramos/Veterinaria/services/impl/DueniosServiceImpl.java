@@ -4,10 +4,12 @@ import com.ramos.Veterinaria.entities.Duenios;
 import com.ramos.Veterinaria.persistence.IDueniosDAO;
 import com.ramos.Veterinaria.services.IDueniosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class DueniosServiceImpl implements IDueniosService {
 
     @Autowired
