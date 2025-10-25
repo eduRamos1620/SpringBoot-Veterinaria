@@ -21,8 +21,8 @@ public class MascotaDAOImpl implements IMascotaDAO {
     }
 
     @Override
-    public Optional<Mascota> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Mascota> findById(Long idMascota) {
+        return repository.findById(idMascota);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MascotaDAOImpl implements IMascotaDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idMascota) {
+        repository.deleteById(idMascota);
     }
 }

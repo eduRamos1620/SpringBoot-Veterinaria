@@ -21,8 +21,8 @@ public class MascotaServiceImpl implements IMascotaService {
     }
 
     @Override
-    public Optional<Mascota> findById(Long id) {
-        return mascotaDAO.findById(id);
+    public Optional<Mascota> findById(Long idMascota) {
+        return mascotaDAO.findById(idMascota);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MascotaServiceImpl implements IMascotaService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        mascotaDAO.deleteById(id);
+    public void deleteById(Long idMascota) {
+        mascotaDAO.deleteById(idMascota);
     }
 }

@@ -9,9 +9,9 @@ public interface IMascotaService {
 
     List<Mascota> findAll();
 
-    Optional<Mascota> findById(Long id);
+    Optional<Mascota> findById(Long idMascota);
 
     void save(Mascota mascota);
 
-    void deleteById(Long id);
+    void deleteById(Long idMascota);
 }

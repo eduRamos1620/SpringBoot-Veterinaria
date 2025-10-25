@@ -85,6 +85,7 @@ public class DuenioController {
             duenios.setCorreo(duenioDto.getCorreo());
             duenios.setMascotas(duenioDto.getMascotas());
 
+            serviceDuenio.save(duenios);
             return ResponseEntity.ok("Se actualizo el duenio correctamente");
         }
         return ResponseEntity.badRequest().build();
