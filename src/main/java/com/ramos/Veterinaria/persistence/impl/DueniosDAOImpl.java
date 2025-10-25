@@ -21,8 +21,8 @@ public class DueniosDAOImpl implements IDueniosDAO {
     }
 
     @Override
-    public Optional<Duenios> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Duenios> findById(Long idDuenio) {
+        return repository.findById(idDuenio);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DueniosDAOImpl implements IDueniosDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idDuenio) {
+        repository.deleteById(idDuenio);
     }
 }

@@ -9,9 +9,9 @@ public interface IDueniosDAO {
 
     List<Duenios> findAll();
 
-    Optional<Duenios> findById(Long id);
+    Optional<Duenios> findById(Long idDuenio);
 
     void save(Duenios duenios);
 
-    void deleteById(Long id);
+    void deleteById(Long idDuenio);
 }

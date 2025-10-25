@@ -21,8 +21,8 @@ public class DueniosServiceImpl implements IDueniosService {
     }
 
     @Override
-    public Optional<Duenios> findById(Long id) {
-        return dueniosDAO.findById(id);
+    public Optional<Duenios> findById(Long idDuenio) {
+        return dueniosDAO.findById(idDuenio);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DueniosServiceImpl implements IDueniosService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        dueniosDAO.deleteById(id);
+    public void deleteById(Long idDuenio) {
+        dueniosDAO.deleteById(idDuenio);
     }
 }
