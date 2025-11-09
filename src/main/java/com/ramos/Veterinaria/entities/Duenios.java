@@ -1,5 +1,6 @@
 package com.ramos.Veterinaria.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -37,5 +38,6 @@ public class Duenios {
     private String correo;
 
     @OneToMany(targetEntity = Mascota.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "duenio")
+    @JsonManagedReference//Solucion 1 a recursividad en Json de finAll
     private List<Mascota> mascotas;
 }

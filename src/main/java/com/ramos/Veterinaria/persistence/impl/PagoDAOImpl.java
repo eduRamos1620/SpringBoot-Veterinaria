@@ -21,8 +21,8 @@ public class PagoDAOImpl implements IPagoDAO {
     }
 
     @Override
-    public Optional<Pago> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Pago> findById(Long idPago) {
+        return repository.findById(idPago);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PagoDAOImpl implements IPagoDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deleteById(Long idPago) {
+        repository.deleteById(idPago);
     }
 }

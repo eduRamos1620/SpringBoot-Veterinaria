@@ -1,8 +1,8 @@
 package com.ramos.Veterinaria.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -27,5 +27,6 @@ public class Mascota {
 
     @ManyToOne(targetEntity = Duenios.class)
     @JoinColumn(name = "id_duenio")
+    @JsonBackReference
     private Duenios duenio;
 }

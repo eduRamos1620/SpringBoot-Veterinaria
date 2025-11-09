@@ -21,8 +21,8 @@ public class PagoServiceImpl implements IPagoService {
     }
 
     @Override
-    public Optional<Pago> findById(Long id) {
-        return pagoDAO.findById(id);
+    public Optional<Pago> findById(Long idPago) {
+        return pagoDAO.findById(idPago);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PagoServiceImpl implements IPagoService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        pagoDAO.deleteById(id);
+    public void deleteById(Long idPago) {
+        pagoDAO.deleteById(idPago);
     }
 }

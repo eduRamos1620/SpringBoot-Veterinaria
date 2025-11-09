@@ -1,6 +1,7 @@
 package com.ramos.Veterinaria.controllers;
 
 import com.ramos.Veterinaria.controllers.dto.DuenioDto;
+import com.ramos.Veterinaria.controllers.dto.MascotaDto;
 import com.ramos.Veterinaria.entities.Duenios;
 import com.ramos.Veterinaria.services.IDueniosService;
 import org.springframework.beans.factory.annotation.Autowired;
