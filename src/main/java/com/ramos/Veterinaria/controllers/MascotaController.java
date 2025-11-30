@@ -1,10 +1,14 @@
 package com.ramos.Veterinaria.controllers;
 
+import com.ramos.Veterinaria.controllers.dto.DuenioDto;
 import com.ramos.Veterinaria.controllers.dto.MascotaDto;
+import com.ramos.Veterinaria.entities.Duenios;
 import com.ramos.Veterinaria.entities.Mascota;
+import com.ramos.Veterinaria.services.IDueniosService;
 import com.ramos.Veterinaria.services.IMascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +21,10 @@ public class MascotaController {
     @Autowired
     private IMascotaService serviceMascota;
 
-    @GetMapping("/finAll")
+    @Autowired
+    private IDueniosService duenioService;
+
+    @GetMapping("/findAll")
     public ResponseEntity<?> finAll(){
         List<MascotaDto> mascotaList = serviceMascota.findAll().stream()
                 .map(mascota -> MascotaDto.builder()
@@ -32,7 +39,7 @@ public class MascotaController {
         return ResponseEntity.ok(mascotaList);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/find/{idMascota}")
     public ResponseEntity<?> findById(@PathVariable Long idMascota){
         Optional<Mascota> mascotaOptional =  serviceMascota.findById(idMascota);
 
@@ -54,17 +61,24 @@ public class MascotaController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save (@RequestBody MascotaDto mascotaDto){
+        if (mascotaDto.getDuenio() == null && mascotaDto.getDuenio().getIdDuenio() == null){
+            return ResponseEntity.badRequest().body("El ID del dueño es obligatorio");
+        }
+
+        Duenios duenio = duenioService.findById(mascotaDto.getDuenio().getIdDuenio()).orElseThrow(() ->
+                new RuntimeException("Dueño no encontrado con ID: " + mascotaDto.getDuenio().getIdDuenio()));
+
         serviceMascota.save(Mascota.builder()
                 .nombre(mascotaDto.getNombre())
                 .tipo(mascotaDto.getTipo())
                 .raza(mascotaDto.getRaza())
-                .duenio(mascotaDto.getDuenio())
+                .duenio(duenio)
                 .build());
 
         return ResponseEntity.ok("Mascota registrada");
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{idMascota}")
     public ResponseEntity<?> updateById(@RequestBody MascotaDto mascotaDto, @PathVariable Long idMascota){
         Optional<Mascota> optionalMascota = serviceMascota.findById(idMascota);
 
@@ -73,7 +87,14 @@ public class MascotaController {
             mascota.setNombre(mascotaDto.getNombre());
             mascota.setTipo(mascotaDto.getTipo());
             mascota.setRaza(mascotaDto.getRaza());
-            mascota.setDuenio(mascotaDto.getDuenio());
+
+
+            if (mascotaDto.getDuenio() != null && mascotaDto.getDuenio().getIdDuenio() != null){
+                Duenios duenio = duenioService.findById(mascotaDto.getDuenio().getIdDuenio()).orElseThrow(() ->
+                        new RuntimeException("Dueño no encontrado con ID: " + mascotaDto.getDuenio().getIdDuenio()));
+
+                mascota.setDuenio(duenio);
+            }
 
             serviceMascota.save(mascota);
 
@@ -83,6 +104,7 @@ public class MascotaController {
     }
 
     @DeleteMapping("/delete/{idMascota}")
+    @Transactional()
     public String deleteById(@PathVariable Long idMascota){
         if (idMascota != null){
             serviceMascota.deleteById(idMascota);

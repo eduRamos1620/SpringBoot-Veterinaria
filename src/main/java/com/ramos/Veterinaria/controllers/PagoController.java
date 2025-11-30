@@ -1,7 +1,9 @@
 package com.ramos.Veterinaria.controllers;
 
 import com.ramos.Veterinaria.controllers.dto.PagoDTO;
+import com.ramos.Veterinaria.entities.Cita;
 import com.ramos.Veterinaria.entities.Pago;
+import com.ramos.Veterinaria.services.ICitaService;
 import com.ramos.Veterinaria.services.IPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class PagoController {
 
     @Autowired
     private IPagoService pagoService;
+
+    @Autowired
+    private ICitaService citaService;
 
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll(){
@@ -53,11 +58,15 @@ public class PagoController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save (@RequestBody PagoDTO pagoDTO){
+
+        Cita cita = citaService.findById(pagoDTO.getCita().getIdCita())
+                .orElseThrow(() -> new RuntimeException("La cita no existe"));
+
         pagoService.save(Pago.builder()
                 .tipoPago(pagoDTO.getTipoPago())
                 .fechaPago(pagoDTO.getFechaPago())
                 .monto(pagoDTO.getMonto())
-                .cita(pagoDTO.getCita())
+                .cita(cita)
                 .build());
 
         return ResponseEntity.ok("Pago guardada con exito");
@@ -80,7 +89,7 @@ public class PagoController {
         return ResponseEntity.badRequest().build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{idPago}")
     public String deleteById(@PathVariable Long idPago){
         if (idPago != null){
             pagoService.deleteById(idPago);

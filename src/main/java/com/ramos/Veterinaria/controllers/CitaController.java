@@ -6,6 +6,7 @@ import com.ramos.Veterinaria.services.ICitaService;
 import com.ramos.Veterinaria.services.impl.CitaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class CitaController {
     @Autowired
     private ICitaService citaService;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/find/{idCita}")
     public ResponseEntity<?> findById(@PathVariable Long idCita) {
         Optional<Cita> citaOptional = citaService.findById(idCita);
 
@@ -57,10 +58,10 @@ public class CitaController {
     @PostMapping("/save")
     public String save(@RequestBody CitaDto citaDto){
         citaService.save(Cita.builder()
-                //.fecha(citaDto.getFecha())
-                .fecha(LocalDate.now())
-                //.hora(citaDto.getHora())
-                .hora(LocalTime.now())
+                .fecha(citaDto.getFecha())
+                //.fecha(LocalDate.now())
+                .hora(citaDto.getHora())
+                //.hora(LocalTime.now())
                 .doctor(citaDto.getDoctor())
                 .duenio(citaDto.getDuenio())
                 .mascota(citaDto.getMascota())
@@ -70,6 +71,7 @@ public class CitaController {
     }
 
     @PutMapping("/update/{idCita}")
+    @Transactional
     public String update(@RequestBody CitaDto citaDto, @PathVariable Long idCita){
         Optional<Cita> citaOptional = citaService.findById(idCita);
 
@@ -86,6 +88,7 @@ public class CitaController {
         return "Cita no encontrada";
     }
 
+    @DeleteMapping("/delete/{idCita}")
     public String deleteById(@PathVariable Long idCita){
         if (idCita != null){
             citaService.deleteById(idCita);

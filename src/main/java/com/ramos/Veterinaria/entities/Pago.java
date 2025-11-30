@@ -32,7 +32,7 @@ public class Pago {
     @NotNull
     private BigDecimal monto;
 
-    @OneToOne(targetEntity = Cita.class, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Cita.class)
     @JoinColumn(name = "id_cita")
     private Cita cita;
 }
